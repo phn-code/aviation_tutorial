@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "ghost_trail_keyboard",
+    "maps": [
+        {
+            "name": "tutorial",
+            "id": "984c4295-e376-4c65-83a3-2ad0ac2bef67",
+            "actions": [
+                {
+                    "name": "ToggleGhostTrail",
+                    "type": "Button",
+                    "id": "2cd2a939-a909-4f9c-971f-05a998f155de",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ed55cc6f-f991-43e1-b4e6-f79ee2770a5d",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleGhostTrail",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
