@@ -61,7 +61,14 @@ public class TutorialManager : MonoBehaviour
         // --- Throttle + Fly Away ---
         yield return StartCoroutine(TeachThrottle());
 
-        Debug.Log("Tutorial Complete!");
+        // --- End ---
+        yield return new WaitForSeconds(2f);
+
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 
     // ─────────────────────────────────────────
