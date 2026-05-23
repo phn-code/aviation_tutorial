@@ -11,6 +11,8 @@ public class TutorialManager : MonoBehaviour
     public AudioClip rollLeftClip;
     public AudioClip rollRightClip;
     public AudioClip stepCompleteClip;
+    public AudioClip pitchUpClip;
+    public AudioClip pitchDownClip;
 
     [Header("Plane")]
     public AxisRotationController axisController;
@@ -23,6 +25,7 @@ public class TutorialManager : MonoBehaviour
 
     [Header("Detection Settings")]
     public float rollThreshold = 30f;
+    public float pitchThreshold = 30f;
 
     [Header("Throttle")]
     public AudioClip throttleClip;
@@ -48,6 +51,12 @@ public class TutorialManager : MonoBehaviour
 
         // --- Roll Right ---
         yield return StartCoroutine(TeachRollRight());
+
+        // --- Pitch Up ---
+        yield return StartCoroutine(TeachPitchUp());
+
+        // --- Pitch Down ---
+        yield return StartCoroutine(TeachPitchDown());
 
         // --- Throttle + Fly Away ---
         yield return StartCoroutine(TeachThrottle());
@@ -229,6 +238,127 @@ public class TutorialManager : MonoBehaviour
             {
                 Debug.Log($"Left Joystick Y: {axis.y:F2}");
                 return axis.y > joystickThreshold;
+            }
+        }
+
+        return false;
+    }
+
+    // ─────────────────────────────────────────
+// PITCH UP
+// ─────────────────────────────────────────
+private IEnumerator TeachPitchUp()
+{
+    tutorialTextBox.SetActive(true);
+    tutorialText.text = "Tilt your left controller back to pitch the nose up";
+    yield return new WaitForSeconds(1.5f);
+
+    audioSource.PlayOneShot(pitchUpClip);
+    yield return new WaitUntil(() =>
+        !audioSource.isPlaying || IsControllerPitchedUp());
+
+    audioSource.Stop();
+    controllerHint.ShowPitchUp();
+    tutorialText.text = "Go ahead — tilt your left controller back";
+    yield return new WaitUntil(() => IsControllerPitchedUp());
+
+    controllerHint.Hide();
+    tutorialText.text = "Great job! Watch the nose pitch up";
+    axisController.LerpAOA(20f, 1.5f);
+    yield return new WaitForSeconds(2f);
+
+    audioSource.PlayOneShot(stepCompleteClip);
+    tutorialText.text = "Step Complete!";
+    yield return new WaitForSeconds(1.5f);
+
+    axisController.LerpAOA(0f, 1.5f);
+    yield return new WaitForSeconds(2f);
+    tutorialTextBox.SetActive(false);
+    yield return new WaitForSeconds(1f);
+}
+
+// ─────────────────────────────────────────
+// PITCH DOWN
+// ─────────────────────────────────────────
+private IEnumerator TeachPitchDown()
+{
+    tutorialTextBox.SetActive(true);
+    tutorialText.text = "Tilt your left controller forward to pitch the nose down";
+    yield return new WaitForSeconds(1.5f);
+
+    audioSource.PlayOneShot(pitchDownClip);
+    yield return new WaitUntil(() =>
+        !audioSource.isPlaying || IsControllerPitchedDown());
+
+    audioSource.Stop();
+    controllerHint.ShowPitchDown();
+    tutorialText.text = "Go ahead — tilt your left controller forward";
+    yield return new WaitUntil(() => IsControllerPitchedDown());
+
+    controllerHint.Hide();
+    tutorialText.text = "Great job! Watch the nose pitch down";
+    axisController.LerpAOA(-20f, 1.5f);
+    yield return new WaitForSeconds(2f);
+
+    audioSource.PlayOneShot(stepCompleteClip);
+    tutorialText.text = "Step Complete!";
+    yield return new WaitForSeconds(1.5f);
+
+    axisController.LerpAOA(0f, 1.5f);
+    yield return new WaitForSeconds(2f);
+    tutorialTextBox.SetActive(false);
+    yield return new WaitForSeconds(1f);
+}
+
+// ─────────────────────────────────────────
+// PITCH DETECTION
+// ─────────────────────────────────────────
+private bool IsControllerPitchedUp()
+{
+    if (Keyboard.current != null && Keyboard.current.wKey.isPressed)
+    {
+        Debug.Log("Keyboard trigger - W pressed");
+        return true;
+    }
+
+    UnityEngine.XR.InputDevice leftController =
+        UnityEngine.XR.InputDevices.GetDeviceAtXRNode(UnityEngine.XR.XRNode.LeftHand);
+
+    if (leftController.isValid)
+    {
+        if (leftController.TryGetFeatureValue(
+            UnityEngine.XR.CommonUsages.deviceRotation, out Quaternion rotation))
+        {
+            Vector3 euler = rotation.eulerAngles;
+            float signedX = euler.x > 180f ? euler.x - 360f : euler.x;
+            Debug.Log($"Controller X (pitch): {signedX:F1}");
+            return signedX < -pitchThreshold;
+        }
+    }
+
+    return false;
+}
+
+    private bool IsControllerPitchedDown()
+    {
+        if (Keyboard.current != null && Keyboard.current.sKey.isPressed)
+        {
+            Debug.Log("Keyboard trigger - S pressed");
+            return true;
+        }
+
+        UnityEngine.XR.InputDevice leftController =
+            UnityEngine.XR.InputDevices.GetDeviceAtXRNode(UnityEngine.XR.XRNode.LeftHand);
+
+        if (leftController.isValid)
+        {
+            if (leftController.TryGetFeatureValue(
+                UnityEngine.XR.CommonUsages.deviceRotation, out Quaternion rotation))
+            {
+                Vector3 euler = rotation.eulerAngles;
+                float signedX = euler.x > 180f ? euler.x - 360f : euler.x;
+                Debug.Log($"Controller X (pitch): {signedX:F1}");
+                return signedX > pitchThreshold;
             }
         }
 

@@ -84,4 +84,20 @@ public class ControllerHintAnimation : MonoBehaviour
     {
         // placeholder — add your animation here later
     }
+
+    public void ShowPitchUp()
+    {
+        currentDirection = HintDirection.Up;
+        timer = 0f;
+        isAnimating = true;
+        gameObject.SetActive(true);
+    }
+
+    public void ShowPitchDown()
+    {
+        currentDirection = HintDirection.Down;
+        timer = 0f;
+        isAnimating = true;
+        gameObject.SetActive(true);
+    }
 }
