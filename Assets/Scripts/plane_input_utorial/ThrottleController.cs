@@ -51,6 +51,7 @@ public class ThrottleController : MonoBehaviour
         // --- Phase 1: Engine slams to full throttle ---
         float elapsed = 0f;
         float rampDuration = 1.2f;
+        float startThrottle = currentThrottle;
         while (elapsed < rampDuration)
         {
             elapsed += Time.deltaTime;
@@ -77,7 +78,7 @@ public class ThrottleController : MonoBehaviour
 
             // Move forward along the plane's own axis
             float delta = speed * Time.deltaTime;
-            planeTransform.Translate(Vector3.forward * delta, Space.Self);
+            planeTransform.Translate(Vector3.right * delta, Space.Self);
             travelledDistance += delta;
 
             yield return null;

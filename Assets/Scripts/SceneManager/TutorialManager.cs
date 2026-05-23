@@ -206,6 +206,7 @@ public class TutorialManager : MonoBehaviour
         tutorialTextBox.SetActive(false);
 
         // Hand straight off to the fly away
+        axisController.enabled = false;
         yield return StartCoroutine(throttleController.FlyAway());
     }
 
