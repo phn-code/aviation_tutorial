@@ -875,7 +875,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4895, y: 10, z: 5178}
-  m_LocalScale: {x: 1, y: 0.2, z: 1}
+  m_LocalScale: {x: 1.5, y: 0.2, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -914,11 +914,14 @@ MonoBehaviour:
   rollLeftClip: {fileID: 8300000, guid: 63d4d8ad5e6794bf8b79e3a6af480600, type: 3}
   rollRightClip: {fileID: 8300000, guid: 2ea5ece2dde634d50a94026b39e0fbd9, type: 3}
   stepCompleteClip: {fileID: 8300000, guid: a9373375adb3c41709b4b5d71a126499, type: 3}
+  pitchUpClip: {fileID: 8300000, guid: ccc227a944cf34e568e355a191693b0f, type: 3}
+  pitchDownClip: {fileID: 8300000, guid: ff23840d668af4eb4ba8458ccd0cbcd6, type: 3}
   axisController: {fileID: 1255432060}
   tutorialTextBox: {fileID: 668016450}
   tutorialText: {fileID: 1063899570}
   controllerHint: {fileID: 1274198405}
   rollThreshold: 30
+  pitchThreshold: 30
   throttleClip: {fileID: 8300000, guid: 055c831857f7c4176a4b7519256351f4, type: 3}
   throttleController: {fileID: 1695689832}
   joystickThreshold: 0.5
