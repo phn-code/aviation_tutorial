@@ -333,10 +333,7 @@ private IEnumerator TeachPitchDown()
 private bool IsControllerPitchedUp()
 {
     if (Keyboard.current != null && Keyboard.current.wKey.isPressed)
-    {
-        Debug.Log("Keyboard trigger - W pressed");
         return true;
-    }
 
     UnityEngine.XR.InputDevice leftController =
         UnityEngine.XR.InputDevices.GetDeviceAtXRNode(UnityEngine.XR.XRNode.LeftHand);
@@ -346,39 +343,48 @@ private bool IsControllerPitchedUp()
         if (leftController.TryGetFeatureValue(
             UnityEngine.XR.CommonUsages.deviceRotation, out Quaternion rotation))
         {
-            Vector3 euler = rotation.eulerAngles;
-            float signedX = euler.x > 180f ? euler.x - 360f : euler.x;
-            Debug.Log($"Controller X (pitch): {signedX:F1}");
-            return signedX < -pitchThreshold;
+            // 1. Get an arrow pointing out of the FRONT of the controller
+            Vector3 controllerForward = rotation * Vector3.forward;
+            
+            // 2. Convert how much it's pointing up/down into actual degrees
+            float pitchAngle = Mathf.Asin(controllerForward.y) * Mathf.Rad2Deg;
+            
+            Debug.Log($"Controller Pitch Angle: {pitchAngle:F1}");
+            
+            // 3. Tilting back (Pitch Up) makes the front point toward the ceiling (Positive Angle)
+            return pitchAngle > pitchThreshold;
         }
     }
 
     return false;
 }
 
-    private bool IsControllerPitchedDown()
+private bool IsControllerPitchedDown()
+{
+    if (Keyboard.current != null && Keyboard.current.sKey.isPressed)
+        return true;
+
+    UnityEngine.XR.InputDevice leftController =
+        UnityEngine.XR.InputDevices.GetDeviceAtXRNode(UnityEngine.XR.XRNode.LeftHand);
+
+    if (leftController.isValid)
     {
-        if (Keyboard.current != null && Keyboard.current.sKey.isPressed)
+        if (leftController.TryGetFeatureValue(
+            UnityEngine.XR.CommonUsages.deviceRotation, out Quaternion rotation))
         {
-            Debug.Log("Keyboard trigger - S pressed");
-            return true;
+            // 1. Get an arrow pointing out of the FRONT of the controller
+            Vector3 controllerForward = rotation * Vector3.forward;
+            
+            // 2. Convert how much it's pointing up/down into actual degrees
+            float pitchAngle = Mathf.Asin(controllerForward.y) * Mathf.Rad2Deg;
+            
+            Debug.Log($"Controller Pitch Angle: {pitchAngle:F1}");
+            
+            // 3. Tilting forward (Pitch Down) makes the front point toward the floor (Negative Angle)
+            return pitchAngle < -pitchThreshold;
         }
-
-        UnityEngine.XR.InputDevice leftController =
-            UnityEngine.XR.InputDevices.GetDeviceAtXRNode(UnityEngine.XR.XRNode.LeftHand);
-
-        if (leftController.isValid)
-        {
-            if (leftController.TryGetFeatureValue(
-                UnityEngine.XR.CommonUsages.deviceRotation, out Quaternion rotation))
-            {
-                Vector3 euler = rotation.eulerAngles;
-                float signedX = euler.x > 180f ? euler.x - 360f : euler.x;
-                Debug.Log($"Controller X (pitch): {signedX:F1}");
-                return signedX > pitchThreshold;
-            }
-        }
-
-        return false;
     }
+
+    return false;
+}
 }
