@@ -1,3 +1,4 @@
+# Unity generated
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -5,6 +6,9 @@
 [Bb]uilds/
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
+.utmp/
+
+# Unity cache & packaging
 *.pidb
 *.suo
 *.userprefs
@@ -13,11 +17,20 @@
 *.pdb
 *.opendb
 *.VC.db
-.DS_Store
+*.unitypackage
 *.apk
 *.aab
-GEMINI.md
-*.unitypackage
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Crash/analytics
 crashlytics-build.properties
+
+# Streaming Assets
 Assets/StreamingAssets/aa.meta
 Assets/StreamingAssets/aa/
+
+# Gemini
+GEMINI.md
