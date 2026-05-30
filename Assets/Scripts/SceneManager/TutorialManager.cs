@@ -166,7 +166,7 @@ public class TutorialManager : MonoBehaviour
                 Vector3 euler = rotation.eulerAngles;
                 float signedZ = euler.z > 180f ? euler.z - 360f : euler.z;
                 Debug.Log($"Controller Z: {signedZ:F1}");
-                return signedZ < -rollThreshold;
+                return signedZ > rollThreshold;
             }
         }
 
@@ -193,7 +193,7 @@ public class TutorialManager : MonoBehaviour
                 Vector3 euler = rotation.eulerAngles;
                 float signedZ = euler.z > 180f ? euler.z - 360f : euler.z;
                 Debug.Log($"Controller Z: {signedZ:F1}");
-                return signedZ > rollThreshold;
+                return signedZ < -rollThreshold;
             }
         }
 
@@ -267,8 +267,7 @@ private IEnumerator TeachPitchUp()
     // yield return new WaitForSeconds(1.5f);
 
     audioSource.PlayOneShot(pitchUpClip);
-    yield return new WaitUntil(() =>
-        !audioSource.isPlaying || IsControllerPitchedUp());
+    yield return new WaitUntil(() => !audioSource.isPlaying);
 
     audioSource.Stop();
     controllerHint.ShowPitchUp();
@@ -303,8 +302,7 @@ private IEnumerator TeachPitchDown()
     // yield return new WaitForSeconds(1.5f);
 
     audioSource.PlayOneShot(pitchDownClip);
-    yield return new WaitUntil(() =>
-        !audioSource.isPlaying || IsControllerPitchedDown());
+    yield return new WaitUntil(() => !audioSource.isPlaying);
 
     audioSource.Stop();
     controllerHint.ShowPitchDown();
