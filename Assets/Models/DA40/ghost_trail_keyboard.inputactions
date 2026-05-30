@@ -27,6 +27,17 @@
                     "action": "ToggleGhostTrail",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d0758d91-7df2-4e19-993a-048f8d4aae01",
+                    "path": "<XRController>{RightHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleGhostTrail",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

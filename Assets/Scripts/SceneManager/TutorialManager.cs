@@ -3,6 +3,8 @@ using System.Collections;
 using TMPro;
 using UnityEngine.InputSystem;
 
+// tts website: https://en.text-to-speech.online/
+
 public class TutorialManager : MonoBehaviour
 {
     [Header("Audio")]
@@ -21,6 +23,11 @@ public class TutorialManager : MonoBehaviour
     public GameObject tutorialTextBox;
     public TextMeshProUGUI tutorialText;
     public ControllerHintAnimation controllerHint;
+
+    [Header("Ghost Trail")]
+    public AudioClip ghostTrailOnClip;
+    public AudioClip ghostTrailOffClip;
+    public GhostTrailToggle ghostTrailToggle;
 
 
     [Header("Detection Settings")]
@@ -57,6 +64,9 @@ public class TutorialManager : MonoBehaviour
 
         // --- Pitch Down ---
         yield return StartCoroutine(TeachPitchDown());
+
+        yield return StartCoroutine(TeachGhostTrail());
+
 
         // --- Throttle + Fly Away ---
         yield return StartCoroutine(TeachThrottle());
@@ -384,6 +394,57 @@ private bool IsControllerPitchedDown()
             return pitchAngle < -pitchThreshold;
         }
     }
+
+    return false;
+}
+
+// ─────────────────────────────────────────
+// GHOST TRAIL
+// ─────────────────────────────────────────
+private IEnumerator TeachGhostTrail()
+{
+    tutorialTextBox.SetActive(true);
+    ghostTrailToggle.enabled = false; 
+
+    audioSource.PlayOneShot(ghostTrailOnClip);
+    yield return new WaitUntil(() => !audioSource.isPlaying);
+
+    tutorialText.text = "Press B to enable the ghost trail";
+    yield return new WaitUntil(() => IsGhostTrailButtonPressed());
+
+    ghostTrailToggle.ToggleGhostTrail();
+    tutorialText.text = "Great job! You can see the aircraft's flight path";
+    yield return new WaitForSeconds(2f);
+
+    audioSource.PlayOneShot(ghostTrailOffClip);
+    yield return new WaitUntil(() => !audioSource.isPlaying);
+
+    tutorialText.text = "Press B again to turn it off";
+    yield return new WaitUntil(() => IsGhostTrailButtonPressed());
+
+    ghostTrailToggle.ToggleGhostTrail();
+    audioSource.PlayOneShot(stepCompleteClip);
+    tutorialText.text = "Step Complete!";
+    yield return new WaitForSeconds(1.5f);
+
+    tutorialText.text = "";
+    tutorialTextBox.SetActive(false);
+    ghostTrailToggle.enabled = true;
+    yield return new WaitForSeconds(1f);
+}
+
+private bool IsGhostTrailButtonPressed()
+{
+    if (Keyboard.current != null && Keyboard.current.gKey.isPressed)
+        return true;
+
+    UnityEngine.XR.InputDevice rightController =
+        UnityEngine.XR.InputDevices.GetDeviceAtXRNode(UnityEngine.XR.XRNode.RightHand);
+
+    if (rightController.isValid)
+        if (rightController.TryGetFeatureValue(
+            UnityEngine.XR.CommonUsages.secondaryButton, out bool pressed))
+            return pressed;
 
     return false;
 }
