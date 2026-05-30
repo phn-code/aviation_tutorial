@@ -77,8 +77,8 @@ public class TutorialManager : MonoBehaviour
     private IEnumerator TeachRollLeft()
     {
         tutorialTextBox.SetActive(true);
-        tutorialText.text = "Tilt your left controller to the left to roll the aircraft";
-        yield return new WaitForSeconds(1.5f);
+        // tutorialText.text = "Tilt your left controller to the left to roll the aircraft";
+        // yield return new WaitForSeconds(1.5f);
 
         audioSource.PlayOneShot(rollLeftClip);
         yield return new WaitForSeconds(rollLeftClip.length + 0.5f);
@@ -98,6 +98,9 @@ public class TutorialManager : MonoBehaviour
         tutorialText.text = "Step Complete!";
         yield return new WaitForSeconds(1.5f);
 
+        tutorialText.text = "";
+        tutorialTextBox.SetActive(false);
+
         axisController.LerpBank(0f, 2.5f);
         yield return new WaitForSeconds(2f);
         tutorialTextBox.SetActive(false);
@@ -110,8 +113,8 @@ public class TutorialManager : MonoBehaviour
     private IEnumerator TeachRollRight()
     {
         tutorialTextBox.SetActive(true);
-        tutorialText.text = "Tilt your left controller to the right to roll the aircraft";
-        yield return new WaitForSeconds(1.5f);
+        // tutorialText.text = "Tilt your left controller to the right to roll the aircraft";
+        // yield return new WaitForSeconds(1.5f);
 
         audioSource.PlayOneShot(rollRightClip);
         yield return new WaitForSeconds(rollRightClip.length + 0.5f);
@@ -130,6 +133,9 @@ public class TutorialManager : MonoBehaviour
         audioSource.PlayOneShot(stepCompleteClip);
         tutorialText.text = "Step Complete!";
         yield return new WaitForSeconds(1.5f);
+
+        tutorialText.text = "";
+        tutorialTextBox.SetActive(false);
 
         axisController.LerpBank(0f, 2.5f);
         yield return new WaitForSeconds(2f);
@@ -257,8 +263,8 @@ public class TutorialManager : MonoBehaviour
 private IEnumerator TeachPitchUp()
 {
     tutorialTextBox.SetActive(true);
-    tutorialText.text = "Tilt your left controller back to pitch the nose up";
-    yield return new WaitForSeconds(1.5f);
+    // tutorialText.text = "Tilt your left controller back to pitch the nose up";
+    // yield return new WaitForSeconds(1.5f);
 
     audioSource.PlayOneShot(pitchUpClip);
     yield return new WaitUntil(() =>
@@ -278,6 +284,9 @@ private IEnumerator TeachPitchUp()
     tutorialText.text = "Step Complete!";
     yield return new WaitForSeconds(1.5f);
 
+    tutorialText.text = "";
+    tutorialTextBox.SetActive(false);
+
     axisController.LerpAOA(0f, 2.5f);
     yield return new WaitForSeconds(2f);
     tutorialTextBox.SetActive(false);
@@ -290,8 +299,8 @@ private IEnumerator TeachPitchUp()
 private IEnumerator TeachPitchDown()
 {
     tutorialTextBox.SetActive(true);
-    tutorialText.text = "Tilt your left controller forward to pitch the nose down";
-    yield return new WaitForSeconds(1.5f);
+    // tutorialText.text = "Tilt your left controller forward to pitch the nose down";
+    // yield return new WaitForSeconds(1.5f);
 
     audioSource.PlayOneShot(pitchDownClip);
     yield return new WaitUntil(() =>
@@ -310,6 +319,9 @@ private IEnumerator TeachPitchDown()
     audioSource.PlayOneShot(stepCompleteClip);
     tutorialText.text = "Step Complete!";
     yield return new WaitForSeconds(1.5f);
+
+    tutorialText.text = "";
+    tutorialTextBox.SetActive(false);
 
     axisController.LerpAOA(0f, 2.5f);
     yield return new WaitForSeconds(2f);
