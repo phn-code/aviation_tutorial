@@ -16,6 +16,7 @@
 .DS_Store
 *.apk
 *.aab
+GEMINI.md
 *.unitypackage
 crashlytics-build.properties
 Assets/StreamingAssets/aa.meta
