@@ -66,6 +66,7 @@ public class ThrottleController : MonoBehaviour
         float flyDistance = 600f;
         float currentPitch = 0f;
         float targetPitch = -25f; // negative = nose pitches up in Unity
+        float startYaw = planeTransform.localEulerAngles.y;
 
         while (travelledDistance < flyDistance)
         {
@@ -74,7 +75,7 @@ public class ThrottleController : MonoBehaviour
 
             // Nose gradually lifts
             currentPitch = Mathf.MoveTowards(currentPitch, targetPitch, 12f * Time.deltaTime);
-            planeTransform.localRotation = Quaternion.Euler(currentPitch, 0f, 0f);
+            planeTransform.localRotation = Quaternion.Euler(currentPitch, startYaw, 0f);
 
             // Move forward along the plane's own axis
             float delta = speed * Time.deltaTime;

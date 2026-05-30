@@ -85,20 +85,20 @@ public class TutorialManager : MonoBehaviour
 
         // Show controller hint animation
         controllerHint.ShowRollLeft();
-        tutorialText.text = "Go ahead — tilt your left controller to the left";
+        tutorialText.text = "Go ahead, tilt your left controller to the left";
         yield return new WaitUntil(() => IsControllerRolledLeft());
 
         // Hide hint when player does it
         controllerHint.Hide();
         tutorialText.text = "Great job! Watch the aircraft roll left";
-        axisController.LerpBank(30f, 1.5f);
+        axisController.LerpBank(30f, 2.5f);
         yield return new WaitForSeconds(2f);
 
         audioSource.PlayOneShot(stepCompleteClip);
         tutorialText.text = "Step Complete!";
         yield return new WaitForSeconds(1.5f);
 
-        axisController.LerpBank(0f, 1.5f);
+        axisController.LerpBank(0f, 2.5f);
         yield return new WaitForSeconds(2f);
         tutorialTextBox.SetActive(false);
         yield return new WaitForSeconds(1f);
@@ -118,20 +118,20 @@ public class TutorialManager : MonoBehaviour
 
         // Show controller hint animation
         controllerHint.ShowRollRight();
-        tutorialText.text = "Go ahead — tilt your left controller to the right";
+        tutorialText.text = "Go ahead, tilt your left controller to the right";
         yield return new WaitUntil(() => IsControllerRolledRight());
 
         // Hide hint when player does it
         controllerHint.Hide();
         tutorialText.text = "Great job! Watch the aircraft roll right";
-        axisController.LerpBank(-30f, 1.5f);
+        axisController.LerpBank(-30f, 2.5f);
         yield return new WaitForSeconds(2f);
 
         audioSource.PlayOneShot(stepCompleteClip);
         tutorialText.text = "Step Complete!";
         yield return new WaitForSeconds(1.5f);
 
-        axisController.LerpBank(0f, 1.5f);
+        axisController.LerpBank(0f, 2.5f);
         yield return new WaitForSeconds(2f);
         tutorialTextBox.SetActive(false);
         yield return new WaitForSeconds(1f);
@@ -266,19 +266,19 @@ private IEnumerator TeachPitchUp()
 
     audioSource.Stop();
     controllerHint.ShowPitchUp();
-    tutorialText.text = "Go ahead — tilt your left controller back";
+    tutorialText.text = "Go ahead, tilt your left controller back";
     yield return new WaitUntil(() => IsControllerPitchedUp());
 
     controllerHint.Hide();
     tutorialText.text = "Great job! Watch the nose pitch up";
-    axisController.LerpAOA(20f, 1.5f);
+    axisController.LerpAOA(20f, 2.5f);
     yield return new WaitForSeconds(2f);
 
     audioSource.PlayOneShot(stepCompleteClip);
     tutorialText.text = "Step Complete!";
     yield return new WaitForSeconds(1.5f);
 
-    axisController.LerpAOA(0f, 1.5f);
+    axisController.LerpAOA(0f, 2.5f);
     yield return new WaitForSeconds(2f);
     tutorialTextBox.SetActive(false);
     yield return new WaitForSeconds(1f);
@@ -299,19 +299,19 @@ private IEnumerator TeachPitchDown()
 
     audioSource.Stop();
     controllerHint.ShowPitchDown();
-    tutorialText.text = "Go ahead — tilt your left controller forward";
+    tutorialText.text = "Go ahead, tilt your left controller forward";
     yield return new WaitUntil(() => IsControllerPitchedDown());
 
     controllerHint.Hide();
     tutorialText.text = "Great job! Watch the nose pitch down";
-    axisController.LerpAOA(-20f, 1.5f);
+    axisController.LerpAOA(-20f, 2.5f);
     yield return new WaitForSeconds(2f);
 
     audioSource.PlayOneShot(stepCompleteClip);
     tutorialText.text = "Step Complete!";
     yield return new WaitForSeconds(1.5f);
 
-    axisController.LerpAOA(0f, 1.5f);
+    axisController.LerpAOA(0f, 2.5f);
     yield return new WaitForSeconds(2f);
     tutorialTextBox.SetActive(false);
     yield return new WaitForSeconds(1f);
