@@ -85,7 +85,7 @@ public class TutorialManager : MonoBehaviour
 
         // Show controller hint animation
         controllerHint.ShowRollLeft();
-        tutorialText.text = "Go ahead, tilt your left controller to the left";
+        tutorialText.text = "To role the aircraft to the left, simply tilt your left controller to the left, as if you were turning a key";
         yield return new WaitUntil(() => IsControllerRolledLeft());
 
         // Hide hint when player does it
