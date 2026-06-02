@@ -589,7 +589,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 4895, y: 11.8}
+  m_AnchoredPosition: {x: 4895, y: 10.25}
   m_SizeDelta: {x: 0.5, y: 0.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &756192406
@@ -695,7 +695,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Rotate your left controller to roll left
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -722,8 +722,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -914,16 +914,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 110445449}
-  introClip: {fileID: 8300000, guid: b59b8eb6c73344488a13b85dadaa2b44, type: 3}
-  rollLeftClip: {fileID: 8300000, guid: 63d4d8ad5e6794bf8b79e3a6af480600, type: 3}
+  introClip: {fileID: 8300000, guid: 8bdb28b02aeba4d53bad2c950dff1836, type: 3}
+  rollLeftClip: {fileID: 8300000, guid: 01ce4d4ef28994256ad4af07de9e3163, type: 3}
   rollRightClip: {fileID: 8300000, guid: 2ea5ece2dde634d50a94026b39e0fbd9, type: 3}
   stepCompleteClip: {fileID: 8300000, guid: a9373375adb3c41709b4b5d71a126499, type: 3}
   pitchUpClip: {fileID: 8300000, guid: ccc227a944cf34e568e355a191693b0f, type: 3}
-  pitchDownClip: {fileID: 8300000, guid: ff23840d668af4eb4ba8458ccd0cbcd6, type: 3}
+  pitchDownClip: {fileID: 8300000, guid: 78b7d1c384ed541929287adabca4cc2f, type: 3}
   axisController: {fileID: 1255432060}
   tutorialTextBox: {fileID: 668016450}
   tutorialText: {fileID: 1063899570}
   controllerHint: {fileID: 1274198405}
+  ghostTrailOnClip: {fileID: 8300000, guid: 2b0659298cdda4690aabfe3314f476de, type: 3}
+  ghostTrailOffClip: {fileID: 8300000, guid: d2c23b0675b1f497d8a7c7b4f4aa62c3, type: 3}
+  ghostTrailToggle: {fileID: 1695689845}
   rollThreshold: 30
   pitchThreshold: 30
   throttleClip: {fileID: 8300000, guid: 055c831857f7c4176a4b7519256351f4, type: 3}
@@ -1298,15 +1301,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8141499557975336560, guid: b05659b52805645ae86a591ccb49512c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.66
+      value: 11.004
       objectReference: {fileID: 0}
     - target: {fileID: 8141499557975336560, guid: b05659b52805645ae86a591ccb49512c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5166.52
+      value: 5167.753
       objectReference: {fileID: 0}
     - target: {fileID: 8141499557975336560, guid: b05659b52805645ae86a591ccb49512c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8141499557975336560, guid: b05659b52805645ae86a591ccb49512c, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1314,7 +1317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8141499557975336560, guid: b05659b52805645ae86a591ccb49512c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8141499557975336560, guid: b05659b52805645ae86a591ccb49512c, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1326,7 +1329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8141499557975336560, guid: b05659b52805645ae86a591ccb49512c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 8141499557975336560, guid: b05659b52805645ae86a591ccb49512c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1367,6 +1370,17 @@ MonoBehaviour:
   minPitch: 0.4
   maxPitch: 1.8
   currentThrottle: 0
+--- !u!114 &1695689845 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3877915752294847032, guid: b05659b52805645ae86a591ccb49512c, type: 3}
+  m_PrefabInstance: {fileID: 1695689830}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255432049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22233881575f0ff409c1880f2c90798a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2068389226
 GameObject:
   m_ObjectHideFlags: 0

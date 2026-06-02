@@ -4,12 +4,12 @@ using System.Collections;
 public class ThrottleController : MonoBehaviour
 {
     [Header("Movement")]
-    public Transform planeTransform;       // drag your airplane root here
-    public float maxSpeed = 80f;           // units/sec at full throttle
-    public float flyAwayAcceleration = 3f; // how fast it ramps to max during fly-away
+    public Transform planeTransform;       
+    public float maxSpeed = 80f;           
+    public float flyAwayAcceleration = 3f; 
 
     [Header("Optional Audio")]
-    public AudioSource engineAudioSource;  // looping engine hum (optional)
+    public AudioSource engineAudioSource;  
     public float minPitch = 0.4f;
     public float maxPitch = 1.8f;
 
@@ -79,7 +79,7 @@ public class ThrottleController : MonoBehaviour
 
             // Move forward along the plane's own axis
             float delta = speed * Time.deltaTime;
-            planeTransform.Translate(Vector3.right * delta, Space.Self);
+            planeTransform.Translate(Vector3.forward * delta, Space.Self);
             travelledDistance += delta;
 
             yield return null;
