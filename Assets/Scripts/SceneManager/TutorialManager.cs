@@ -81,9 +81,7 @@ public class TutorialManager : MonoBehaviour
         #endif
     }
 
-    // ─────────────────────────────────────────
     // ROLL LEFT
-    // ─────────────────────────────────────────
     private IEnumerator TeachRollLeft()
     {
         tutorialTextBox.SetActive(true);
@@ -117,9 +115,8 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
     }
 
-    // ─────────────────────────────────────────
+
     // ROLL RIGHT
-    // ─────────────────────────────────────────
     private IEnumerator TeachRollRight()
     {
         tutorialTextBox.SetActive(true);
@@ -210,12 +207,8 @@ public class TutorialManager : MonoBehaviour
         return false;
     }
 
-        // ─────────────────────────────────────────
-    // THROTTLE
-    // ─────────────────────────────────────────
-    // ─────────────────────────────────────────
 // THROTTLE
-// ─────────────────────────────────────────
+
     private IEnumerator TeachThrottle()
     {
         tutorialTextBox.SetActive(true);
@@ -267,9 +260,8 @@ public class TutorialManager : MonoBehaviour
         return false;
     }
 
-    // ─────────────────────────────────────────
+
 // PITCH UP
-// ─────────────────────────────────────────
 private IEnumerator TeachPitchUp()
 {
     tutorialTextBox.SetActive(true);
@@ -282,6 +274,7 @@ private IEnumerator TeachPitchUp()
     audioSource.Stop();
     controllerHint.ShowPitchUp();
     tutorialText.text = "Go ahead, tilt your left controller back";
+    yield return new WaitForSeconds(1f); 
     yield return new WaitUntil(() => IsControllerPitchedUp());
 
     controllerHint.Hide();
@@ -337,9 +330,7 @@ private IEnumerator TeachPitchDown()
     yield return new WaitForSeconds(1f);
 }
 
-// ─────────────────────────────────────────
 // PITCH DETECTION
-// ─────────────────────────────────────────
 private bool IsControllerPitchedUp()
 {
     if (Keyboard.current != null && Keyboard.current.wKey.isPressed)
@@ -398,9 +389,8 @@ private bool IsControllerPitchedDown()
     return false;
 }
 
-// ─────────────────────────────────────────
+
 // GHOST TRAIL
-// ─────────────────────────────────────────
 private IEnumerator TeachGhostTrail()
 {
     tutorialTextBox.SetActive(true);

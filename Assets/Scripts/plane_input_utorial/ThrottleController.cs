@@ -19,7 +19,6 @@ public class ThrottleController : MonoBehaviour
 
     private void Update()
     {
-        // Drive engine audio pitch from throttle (optional, won't crash if null)
         if (engineAudioSource != null)
             engineAudioSource.pitch = Mathf.Lerp(minPitch, maxPitch, currentThrottle);
 
@@ -60,32 +59,32 @@ public class ThrottleController : MonoBehaviour
         }
         currentThrottle = 1f;
 
-        // --- Phase 2: Accelerate forward and pitch nose up ---
+        // Phase 2: Accelerate forward and pitch nose up 
         float speed = 5f;
         float travelledDistance = 0f;
         float flyDistance = 600f;
         float currentPitch = 0f;
-        float targetPitch = -25f; // negative = nose pitches up in Unity
+        float targetPitch = -25f;
         float startYaw = planeTransform.localEulerAngles.y;
+
+        Vector3 flyDirection = Vector3.right;
+        flyDirection.y = 0f;
+        flyDirection.Normalize();
 
         while (travelledDistance < flyDistance)
         {
-            // Speed ramps up fast
             speed = Mathf.MoveTowards(speed, maxSpeed, flyAwayAcceleration * Time.deltaTime * 50f);
 
-            // Nose gradually lifts
             currentPitch = Mathf.MoveTowards(currentPitch, targetPitch, 12f * Time.deltaTime);
             planeTransform.localRotation = Quaternion.Euler(currentPitch, startYaw, 0f);
 
-            // Move forward along the plane's own axis
             float delta = speed * Time.deltaTime;
-            planeTransform.Translate(Vector3.forward * delta, Space.Self);
+            planeTransform.position += flyDirection * delta;
             travelledDistance += delta;
 
             yield return null;
         }
+        planeTransform.gameObject.SetActive(false); 
 
-        // Plane is gone — hide it
-        planeTransform.gameObject.SetActive(false);
     }
 }
