@@ -13,7 +13,7 @@ public class ThrottleController : MonoBehaviour
     public float minPitch = 0.4f;
     public float maxPitch = 1.8f;
 
-    [HideInInspector] public float currentThrottle = 0f; // 0–1, read by UI if needed
+    [HideInInspector] public float currentThrottle = 0f; 
 
     private bool isFlyingAway = false;
 
@@ -22,10 +22,9 @@ public class ThrottleController : MonoBehaviour
         if (engineAudioSource != null)
             engineAudioSource.pitch = Mathf.Lerp(minPitch, maxPitch, currentThrottle);
 
-        // Fly-away movement is handled in the coroutine below
     }
 
-    // ── Called by tutorial to smoothly show throttle increasing ──────────────
+    //Called by tutorial to smoothly show throttle increasing 
     public void LerpThrottle(float targetThrottle, float duration)
     {
         StartCoroutine(LerpThrottleCoroutine(targetThrottle, duration));
@@ -44,10 +43,10 @@ public class ThrottleController : MonoBehaviour
         currentThrottle = target;
     }
 
-    // ── Called at the end of the tutorial — plane flies off into the distance ─
+    // alled at the end of the tutorial plane flies off into the distance 
     public IEnumerator FlyAway()
     {
-        // --- Phase 1: Engine slams to full throttle ---
+        // Phase 1: Engine slams to full throttle 
         float elapsed = 0f;
         float rampDuration = 1.2f;
         float startThrottle = currentThrottle;
@@ -59,7 +58,7 @@ public class ThrottleController : MonoBehaviour
         }
         currentThrottle = 1f;
 
-        // Phase 2: Accelerate forward and pitch nose up 
+        // Accelerate forward and pitch nose up 
         float speed = 5f;
         float travelledDistance = 0f;
         float flyDistance = 600f;

@@ -3,7 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine.InputSystem;
 
-// tts website: https://en.text-to-speech.online/
+// tts website: https://en.texttospeech.online/
 
 public class TutorialManager : MonoBehaviour
 {
@@ -48,30 +48,30 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator RunTutorial()
     {
-        // --- Intro ---
+        //  Intro 
         yield return new WaitForSeconds(1f);
         audioSource.PlayOneShot(introClip);
         yield return new WaitForSeconds(introClip.length + 1f);
 
-        // --- Roll Left ---
+        //  Roll Left 
         yield return StartCoroutine(TeachRollLeft());
 
-        // --- Roll Right ---
+        //  Roll Right 
         yield return StartCoroutine(TeachRollRight());
 
-        // --- Pitch Up ---
+        //  Pitch Up 
         yield return StartCoroutine(TeachPitchUp());
 
-        // --- Pitch Down ---
+        //  Pitch Down 
         yield return StartCoroutine(TeachPitchDown());
 
         yield return StartCoroutine(TeachGhostTrail());
 
 
-        // --- Throttle + Fly Away ---
+        //  Throttle + Fly Away 
         yield return StartCoroutine(TeachThrottle());
 
-        // --- End ---
+        //  End 
         yield return new WaitForSeconds(2f);
 
         #if UNITY_EDITOR
@@ -150,9 +150,8 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
     }
 
-    // ─────────────────────────────────────────
+
     // DETECTION
-    // ─────────────────────────────────────────
     private bool IsControllerRolledLeft()
     {
         // Keyboard fallback for testing
@@ -162,8 +161,7 @@ public class TutorialManager : MonoBehaviour
             return true;
         }
 
-        UnityEngine.XR.InputDevice leftController =
-            UnityEngine.XR.InputDevices.GetDeviceAtXRNode(UnityEngine.XR.XRNode.LeftHand);
+        UnityEngine.XR.InputDevice leftController = UnityEngine.XR.InputDevices.GetDeviceAtXRNode(UnityEngine.XR.XRNode.LeftHand);
 
         if (leftController.isValid)
         {
@@ -199,7 +197,7 @@ public class TutorialManager : MonoBehaviour
             {
                 Vector3 euler = rotation.eulerAngles;
                 float signedZ = euler.z > 180f ? euler.z - 360f : euler.z;
-                Debug.Log($"Controller Z: {signedZ:F1}");
+                // Debug.Log($"Controller Z: {signedZ:F1}");
                 return signedZ < -rollThreshold;
             }
         }
@@ -223,7 +221,7 @@ public class TutorialManager : MonoBehaviour
 
         yield return new WaitUntil(() => IsJoystickPushedForward());
 
-        // The moment they push — immediate reaction
+        // The moment they push immediate reaction
         controllerHint.Hide();
         tutorialText.text = "Hold on tight!";
         yield return new WaitForSeconds(0.8f);
@@ -240,7 +238,7 @@ public class TutorialManager : MonoBehaviour
         // Keyboard fallback for testing
         if (Keyboard.current != null && Keyboard.current.upArrowKey.isPressed)
         {
-            Debug.Log("Keyboard trigger - UP ARROW pressed");
+            Debug.Log("Keyboard trigger UP ARROW pressed");
             return true;
         }
 
@@ -295,9 +293,7 @@ private IEnumerator TeachPitchUp()
     yield return new WaitForSeconds(1f);
 }
 
-// ─────────────────────────────────────────
 // PITCH DOWN
-// ─────────────────────────────────────────
 private IEnumerator TeachPitchDown()
 {
     tutorialTextBox.SetActive(true);
@@ -344,15 +340,15 @@ private bool IsControllerPitchedUp()
         if (leftController.TryGetFeatureValue(
             UnityEngine.XR.CommonUsages.deviceRotation, out Quaternion rotation))
         {
-            // 1. Get an arrow pointing out of the FRONT of the controller
+            // Get an arrow pointing out of the FRONT of the controller
             Vector3 controllerForward = rotation * Vector3.forward;
             
-            // 2. Convert how much it's pointing up/down into actual degrees
+            // Convert how much it's pointing up/down into actual degrees
             float pitchAngle = Mathf.Asin(controllerForward.y) * Mathf.Rad2Deg;
             
             Debug.Log($"Controller Pitch Angle: {pitchAngle:F1}");
             
-            // 3. Tilting back (Pitch Up) makes the front point toward the ceiling (Positive Angle)
+            // Tilting back (Pitch Up) makes the front point toward the ceiling (Positive Angle)
             return pitchAngle > pitchThreshold;
         }
     }
